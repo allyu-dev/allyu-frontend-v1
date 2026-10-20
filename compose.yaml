@@ -1,0 +1,27 @@
+services:
+  dev:
+    image: node:20-bookworm-slim
+    working_dir: /app
+    init: true
+    ports:
+      - "127.0.0.1:${DEV_PORT:-5173}:5173"
+    volumes:
+      - .:/app
+      - dev_dependencies:/app/node_modules
+    command: npm run dev:bootstrap
+
+  production:
+    profiles: [production]
+    build:
+      context: .
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-}
+        VITE_FIREBASE_API_KEY: ${VITE_FIREBASE_API_KEY:-}
+        VITE_FIREBASE_AUTH_DOMAIN: ${VITE_FIREBASE_AUTH_DOMAIN:-}
+        VITE_FIREBASE_PROJECT_ID: ${VITE_FIREBASE_PROJECT_ID:-}
+        VITE_FIREBASE_APP_ID: ${VITE_FIREBASE_APP_ID:-}
+    ports:
+      - "127.0.0.1:${PRODUCTION_PORT:-8080}:80"
+
+volumes:
+  dev_dependencies:
