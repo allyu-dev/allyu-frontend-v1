@@ -1,0 +1,15 @@
+node_modules
+dist
+.git
+.github
+.env
+.env.*
+!.env.example
+*.log
+coverage
+allyu-frontend-upload.zip
+docs
+serviceAccountKey.json
+**/serviceAccountKey.json
+*.pem
+*.key
